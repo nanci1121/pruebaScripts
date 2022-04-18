@@ -1,2 +1,12 @@
-Venancio Feliz
-alex felix
+como crear contraseñas ssh
+ssh-keygen
+
+se mete la clave publica dentro del directorio ssh del usuario del servidor
+y llamarla authorized_keys
+
+con
+ lsof -i:22
+ vemos las conexiones a la maquina
+
+con una clave privada 
+ssh -i clave_privadaSSH usuario@servidor

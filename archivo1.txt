@@ -1,1 +1,49 @@
-Que esta pasano
+comandos para bash:
+tr => transforma
+# para leer directorios con guion
+cat $(pwd)/-
+# archivos con separcion de espacios cat spaces\ in\ this\ filename
+cat s* y darle a la tabulacion  --o podria ser-- cat *this* 
+bandit2 encontrada: UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+# ls -al para ver los archivos ocultos // find / -name .h* 2>/dev/null  //fing . -name .hidden | xargs cat
+bandit3 encontrado: pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+#flash adicionales que se pueden poner en los permisos chattr -i -V file.txt por ejemplo para ver lsattr
+#find . -name -file07 | xargs cat  encontrado:koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+bandit5 => find . -type f -readable ! -executable -size 1033c | xargs cat | xargs
+encontrado: DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+bandit6 => find / -type f  -size 33c -user bandit7 -group bandit6 2>/dev/null | xargs cat
+HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+
+bandit7@bandit:~$ cat data.txt | grep millionth
+millionth       cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+
+bandit8@bandit:~$ sort data.txt | uniq -u
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+
+bandit9@bandit:~$ strings data.txt | grep '\==* ' 
+========== the*2i"4
+========== password
+Z)========== is
+&========== truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+
+bandit10@bandit:~$ base64 --decode  data.txt 
+The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+
+bandit11@bandit:~$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+
+bandit12@bandit:/tmp/ven$ mv data8.bin data8.gz
+bandit12@bandit:/tmp/ven$ gzip -d data8.gz 
+bandit12@bandit:/tmp/ven$ ls
+data5.bin  data6.bin  data8  data.out  data.txt
+bandit12@bandit:/tmp/ven$ file data8
+data8: ASCII text
+bandit12@bandit:/tmp/ven$ cat data8
+The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+
+bandit13@bandit:~$ ls
+sshkey.private
+bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
