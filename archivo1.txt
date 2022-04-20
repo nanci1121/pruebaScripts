@@ -47,3 +47,180 @@ sshkey.private
 bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
 bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+
+bandit14@bandit:~$ nc localhost 30000
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+andit15@bandit:~$ openssl s_client -connect localhost:30001
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+Correct!
+cluFn7wTiGryunymYOu4RcffSxQluehd
+
+closed
+bandit15@bandit:~$ 
+
+bandit16@bandit:~$ openssl s_client -connect 127.0.0.1:31046
+CONNECTED(00000003)
+nos da los puertos
+bandit16@bandit:~$ openssl s_client -connect 127.0.0.1:31790
+nos da un cerfificado publico 
+creamos un archivo en una carpeta temporal con
+andit16@bandit:~$ mktemp -d
+/tmp/tmp.cdOJy7lQO2
+bandit16@bandit:~$ cd /tmp/tmp.cdOJy7lQO2
+creamos el archivo con nano y nombre id_Rsa y permisos 600
+nos conectamos al servidor con usuario bandit17 y certificado id_Rsa
+bandit16@bandit:/tmp/tmp.cdOJy7lQO2$ ssh -i id_Rsa bandit17@localhost
+ahora conectados como bandit17 vamos a la carpeta y vemos el pasword de este
+bandit17@bandit:~$ cat /etc/bandit_pass/bandit17
+xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
+
+bandit17@bandit:~$ diff passwords.new passwords.old
+42c42
+< kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+---
+> w0Yfolrc5bwjS4qw5mq1nnQi6mF03bii
+como nos hecha cambiamos a bash porque nos cambia a .bashrc
+enancio@debian:~/scripts$ ssh bandit18@bandit.labs.overthewire.org -p 2220 bash
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit18@bandit.labs.overthewire.org's password: 
+ls
+readme
+cat readme
+IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+
+bandit19@bandit:~$ ./bandit20-do bash -p
+bash-4.4$ whoami
+bandit20
+bash-4.4$ cat /etc/bandit_pass/bandit20
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+bash-4.4$ 
+
+bandit20@bandit:~$ ls
+suconnect
+bandit20@bandit:~$ ./suconnect
+Usage: ./suconnect <portnumber>
+This program will connect to the given port on localhost using TCP. If it receives the correct password from the other side, the next password is transmitted back.
+bandit20@bandit:~$ ./suconnect 5757
+Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+Password matches, sending next password
+bandit20@bandit:~$ 
+
+con otra consola nos conectamos como servidor
+bandit20@bandit:~$ nc -nlvp 5757
+listening on [any] 5757 ...
+connect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 40274
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+
+bandit21@bandit:~$ ls -l /etc/cron.d
+total 24
+-rw-r--r-- 1 root root  62 May 14  2020 cronjob_bandit15_root
+-rw-r--r-- 1 root root  62 Jul 11  2020 cronjob_bandit17_root
+-rw-r--r-- 1 root root 120 May  7  2020 cronjob_bandit22
+-rw-r--r-- 1 root root 122 May  7  2020 cronjob_bandit23
+-rw-r--r-- 1 root root 120 May 14  2020 cronjob_bandit24
+-rw-r--r-- 1 root root  62 May 14  2020 cronjob_bandit25_root
+bandit21@bandit:~$ cat /etc/cron.d/cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+bandit21@bandit:~$ cat /usr/bin/cronjob_bandit22.sh 
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+bandit21@bandit:~$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+bandit21@bandit:~$ 
+
+bandit22@bandit:~$ cat /etc/cron.d/cronjob_bandit23
+@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+bandit22@bandit:~$ cat /etc/cron.d/cronjob_bandit23
+@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+bandit22@bandit:~$ cat /usr/bin/cronjob_bandit23.sh 
+#!/bin/bash
+
+myname=$(whoami) el error es que bandit23 no bandit22 como dice whoami
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+bandit22@bandit:~$ myname=$(whoami)
+bandit22@bandit:~$ mytarget=$(echo I am user bandit23 | md5sum | cut -d ' ' -f 1)
+bandit22@bandit:~$ echo $mytarget
+8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:~$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+
+bandit23@bandit:~$ cat /usr/bin/cronjob_bandit24.sh 
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname
+echo "Executing and deleting all scripts in /var/spool/$myname:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" ./$i)"
+        if [ "${owner}" = "bandit23" ]; then
+            timeout -s 9 60 ./$i
+        fi
+        rm -f ./$i
+    fi
+done
+
+bandit23@bandit:~$ 
+tenemos que crear un scrip que lea el archivo /etc/bandit_pass/bandit24
+pero despues de ejecutar lo borra
+creamos una carpeta temporal con mktemp
+bandit23@bandit:~$ mktemp -d
+/bandit23@bandit:/$ chmod o+rwx /tmp/tmp.CJcQPAhQld
+bandit23@bandit:/$ ls -l /tmp/tmp.CJcQPAhQld
+total 4
+-rw-r--r-- 1 bandit23 root 71 Apr 20 22:51 script.sh
+bandit23@bandit:/$ cd /tmp/tmp.CJcQPAhQld
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ chmod +x script.sh 
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ ls -l
+total 4
+-rwxr-xr-x 1 bandit23 root 71 Apr 20 22:51 script.sh
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ cp script.sh /var/spool/bandit24/script.sh
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ watch -n1 ls -l
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ cat script.sh 
+#!/bin/bash
+
+cat /etc/bandit_pass/bandit24 > //tmp/tmp.CJcQPAhQld/clave.txt
+
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ watch -n 1 ls -l
+
+[1]+  Stopped                 watch -n1 ls -l
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ ls -al
+total 2000
+drwxrwxrwx 2 bandit23 root        4096 Apr 20 23:08 .
+drwxrws-wt 1 root     root     2031616 Apr 20 23:08 ..
+-rw-r--r-- 1 bandit24 bandit24      33 Apr 20 23:08 clave.txt
+-rwxr-xr-x 1 bandit23 root          77 Apr 20 23:06 script.sh
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ cat clave.txt 
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+bandit23@bandit:/tmp/tmp.CJcQPAhQld$ 
+
+
+creamos un scrip en el directorio temporal con mktemp
+#!/bin/bash
+for i in {0000..9999}; do
+        echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ $i"
+done
+bandit24@bandit:./script.sh > data.txt
+bandit24@bandit:/tmp/tmp.jLiEpvAV3C$ cat data.txt | nc localhost 30002 |grep -v -E "Wrong|Please"
+Correct!
+The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+
+Exiting.
+bandit24@bandit:/tmp/tmp.jLiEpvAV3C$ 
