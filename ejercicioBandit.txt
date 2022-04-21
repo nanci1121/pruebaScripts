@@ -1,5 +1,7 @@
+https://overthewire.org/wargames/bandit/bandit33.html
 comandos para bash:
 tr => transforma
+nc => emite dato a una ip y un puerto (nc localhost 30002)
 # para leer directorios con guion
 cat $(pwd)/-
 # archivos con separcion de espacios cat spaces\ in\ this\ filename
@@ -224,3 +226,126 @@ The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 
 Exiting.
 bandit24@bandit:/tmp/tmp.jLiEpvAV3C$ 
+
+bandit25@bandit:~$ cat /etc/passwd | grep -e bandit25 -e bandit26
+bandit25:x:11025:11025:bandit level 25:/home/bandit25:/bin/bash
+bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+
+tenemos que hacer la consola pequeña para que el comando more no actue
+presionar v y seguidamente :set shell=/bin/bash  =con esto cambiamos la shell
+colocamos :shell y entramos como usuario bandit26
+
+bandit26@bandit:~$ whoami
+bandit26
+
+bandit26@bandit:~$ ls -l
+total 12
+-rwsr-x--- 1 bandit27 bandit26 7296 May  7  2020 bandit27-do
+-rw-r----- 1 bandit26 bandit26  258 May  7  2020 text.txt
+bandit26@bandit:~$ ./bandit27-do 
+Run a command as another user.
+  Example: ./bandit27-do id
+bandit26@bandit:~$ ./bandit27-do whoami
+bandit27
+bandit26@bandit:~$ ./bandit27-do bash -p
+bash-4.4$ whoami
+bandit27
+bash-4.4$ cat /etc/bandit_pass/bandit27
+3ba3118a22e93127a4ed485be72ef5ea
+
+bandit27@bandit:~$ mktemp -d
+/tmp/tmp.DoorVqfZVi
+bandit27@bandit:~$  cd /tmp/tmp.DoorVqfZVi
+bandit27@bandit:/tmp/tmp.DoorVqfZVi$ git clone ssh://bandit27-git@localhost/home/bandit27-git/repo
+colocamos la contraseña de bandit27=3ba3118a22e93127a4ed485be72ef5ea
+y se nos crea el repositorio
+bandit27@bandit:/tmp/tmp.DoorVqfZVi$ ls -l
+total 4
+drwxr-sr-x 3 bandit27 root 4096 Apr 21 19:41 repo
+bandit27@bandit:/tmp/tmp.DoorVqfZVi$ cd repo/
+bandit27@bandit:/tmp/tmp.DoorVqfZVi/repo$ ls -l
+total 4
+-rw-r--r-- 1 bandit27 root 68 Apr 21 19:41 README
+bandit27@bandit:/tmp/tmp.DoorVqfZVi/repo$ cat README 
+The password to the next level is: 0ef186ac70e04ea33b4c1853d2526fa2
+bandit27@bandit:/tmp/tmp.DoorVqfZVi/repo$ 
+
+bandit28@bandit:~$ mktemp -d
+/tmp/tmp.ABBxW0KbGB
+bandit28@bandit:~$ cd /tmp/tmp.ABBxW0KbGB
+bandit28@bandit:/tmp/tmp.ABBxW0KbGB$ git clone //bandit28-git@localhost/home/bandit28-git/repo
+entramos la contraseña y bajamos el repo
+dentro vemos los commit con git log 
+bandit28@bandit:/tmp/tmp.ABBxW0KbGB/repo$ git log -p -1
+commit edd935d60906b33f0619605abd1689808ccdd5ee
+Author: Morla Porla <morla@overthewire.org>
+Date:   Thu May 7 20:14:49 2020 +0200
+
+    fix info leak
+
+diff --git a/README.md b/README.md
+index 3f7cee8..5c6457b 100644
+--- a/README.md
++++ b/README.md
+@@ -4,5 +4,5 @@ Some notes for level29 of bandit.
+ ## credentials
+ 
+ - username: bandit29
+-- password: bbc96594b4e001778eee9975372716b2
++- password: xxxxxxxxxx
+ 
+bandit29@bandit:~$ mktemp -d
+/tmp/tmp.kR9mazalwn
+bandit29@bandit:~$ cd /tmp/tmp.kR9mazalwn
+bandit29@bandit:/tmp/tmp.kR9mazalwn$ git clone ssh://bandit29-git@localhost/home/bandit29-git/repo
+bandit29@bandit:/tmp/tmp.kR9mazalwn/repo$ git branch
+* master
+bandit29@bandit:/tmp/tmp.kR9mazalwn/repo$ git branch -r
+  origin/HEAD -> origin/master
+  origin/dev
+  origin/master
+  origin/sploits-dev
+bandit29@bandit:/tmp/tmp.kR9mazalwn/repo$ git checkout dev
+bandit29@bandit:/tmp/tmp.kR9mazalwn/repo$ git log -p -1
+-- password: <no passwords in production!>
++- password: 5b90576bedb2cc04c86a9e924ce42faf
+
+bandit30@bandit:/tmp/tmp.fyxx7cApoK/repo$ ls -l
+total 4
+-rw-r--r-- 1 bandit30 root 30 Apr 21 20:21 README.md
+bandit30@bandit:/tmp/tmp.fyxx7cApoK/repo$ cat README.md 
+just an epmty file... muahaha
+bandit30@bandit:/tmp/tmp.fyxx7cApoK/repo$ git tag
+secret
+bandit30@bandit:/tmp/tmp.fyxx7cApoK/repo$ git show secret 
+47e603bb428404d265f59c42920d81e5
+
+bandit31 
+igual que el anterior pero hay que retocar archivo .gitignore 
+hace un add . despues un commit y a continuacion un push donde nos piden la contraseña de  bandit31
+y la respuesta de git es el password de bandit 32 
+56a9bf19c63d650ce78e6ec0354ee45e
+
+bandit32 
+todo lo que pones pasa a mayuscula, para cambiar la shell
+hay que colocar $0 y entramos en otra shell
+$ pwd
+/home/bandit32
+$ whoami
+bandit33
+$ cat /etc/bandit_pass/bandit33	
+c9c3199ddf4121b10cf581a98d51caee
+$ exit
+y ctrol d para salir del servidor
+
+bandit33@bandit:~$ ls
+README.txt
+bandit33@bandit:~$ cat README.txt 
+Congratulations on solving the last level of this game!
+
+At this moment, there are no more levels to play in this game. However, we are constantly working
+on new levels and will most likely expand this game with more levels soon.
+Keep an eye out for an announcement on our usual communication channels!
+In the meantime, you could play some of our other wargames.
+
+If you have an idea for an awesome new level, please let us know!
