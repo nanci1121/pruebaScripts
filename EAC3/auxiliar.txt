@@ -1,0 +1,64 @@
+ver usuarios  
+    cat /etc/passwd | cut -d":" -f1
+    awk -F':' '{ print $1}' /etc/passwd
+    getent passwd
+
+ver grupos 
+    getent group | awk -F: '{ print $1}' con | wc -l numero de grupos
+    groups     los grupos de un usuario
+    - usuario grupo principal archivo /etc/pasword
+    - todos los grupos estan en /etc/group
+
+crear usuario
+    sudo useradd nombreUsuario
+    useradd -G examplegroup exampleusername =>grupo secundario
+    passwd jsmith   => colocar passwd a usurio jsmith
+crear grupos de usuarios
+    sudo groupadd mynewgroup
+    
+añadir usuario 'sudo' existente a un grupo 'geek'
+    sudo usermod -a -g sudo geek
+    usermod -a -G group1, group2, group3 exampleusername
+cambiar el grupo primario
+    sudo usermod -g grupo_example usuari_geek   => grupo primario
+    sudo usermod -G grupo_example usuario_geek   => grupo secundario
+
+#!/bin/bash
+
+
+cat prueba.txt|tr "\n" " "
+
+OLD_IFS=$IFS
+IFS=$' '
+lines_ary=( $(cat "./prueba.txt") )
+IFS=$OLD_IFS
+ 
+
+for idx in $(seq 0 $((${#lines_ary[@]} - 1))); do
+    line="${lines_ary[$idx]}"
+    #printf "${line}\n"
+    echo -e "${line}\n" | tr -d '\n' | wc -c
+	
+done
+
+
+#!/usr/bin/perl 
+use strict;
+use warnings;
+
+my $file = 'file_a_abrir';                              # file a abrir
+my $cadena = `cat $file`;                               # recuperas el texto
+my @cadena = split("\n| ", $cadena);                    # construyes un array, puedes poner
+                                                        # más caracteres de separador, como \t...
+
+my %hash;                                               # defines un hash donde guardar res.
+
+foreach (@cadena){                                      # para cada elemento del array
+    if (length($_)>0){                                  # sólo si es 1 caracter al menos
+#        print "$_ ". length($_)."\n";                  # descomentar para ver resultado
+        $hash{sprintf ("%3d",length($_))}+=1;           # suma 1 a la llave del hash
+    }
+}
+foreach my $ele (sort keys %hash){                      # para cada elemento del hash
+    print "$hash{$ele} palabras de $ele letras\n";      # saca resultado ordenado
+}
